@@ -1,0 +1,38 @@
+//此头文件用vector容器创建了一个栈Stack
+#include<vector>
+#include<stdexcept>
+using namespace std;
+
+template <typename S>
+class Stack{
+    private:
+        vector<S> elems;
+    public:
+        S top() const //栈顶指针
+        {
+            if(elems.empty())
+            {
+                throw out_of_range("Stack<>::pop : empty stack");
+            }
+            return elems.back();
+        }
+        //虚函数，要进行重载
+        virtual void push(S const& elem)
+        {
+            //传入元素
+            elems.push_back(elem);
+        }
+        virtual void pop( )
+        {
+            if(elems.empty())
+            {
+                throw out_of_range("Stack<>::pop : empty stack");
+            }
+            elems.pop_back();
+            //A reference to the last element in the vector
+        }
+        bool empty () const
+        {
+            return elems.empty();
+        }
+};
