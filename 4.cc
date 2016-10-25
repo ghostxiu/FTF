@@ -33,16 +33,17 @@ class Cat:public Pet{
 
 
 //自己写
-class DogCatQueue{
+class PetEnterQueue{
     private:
         Pet pet;
         long count ;
     public:
-        void EnterQueue(Pet pet ,long count )
-        {
-            this->pet = pet;//DogCatQueue.pet
-            this->count = count ;//DogCatQueue.count
-        }
+        //构造函数
+        PetEnterQueue(Pet *pet,long count)
+        :pet(pet),count(count)
+            {
+
+            }
         Pet GetPet()
         {
             return this->pet;
@@ -51,7 +52,7 @@ class DogCatQueue{
         {
             return this->count;
         }
-        string GetEnterType()
+        string &GetEnterType()
         {
             return this->pet.GetType();
         }
@@ -61,31 +62,28 @@ class DogCatQueue{
 class PetQueue
 {
     private:
-        queue<DogCatQueue> Dog;
-        queue<DogCatQueue> Cat;
-        long count ;
-        Pet p;//暂存队首元素
+        queue<PetEnterQueue> DogQ;
+        queue<PetEnterQueue> CatQ;
+        long count;
+        Pet *p;//暂存队首元素
     public:
         //构造函数
-        PetQueue()
+        PetQueue(long count = 0):count(count)
         {//开辟内存空间，count赋初值
-            this.Dog = new queue<PetEnterQueue>;
-            this.Cat = new queue<PetEnterQueue>;
-            this.count = 0 ;
         }
         //猫狗入栈函数
-        void Add()
+        void Add(Pet *pet)
         {
-            if(pet.GetType() == "dog")
+            if(pet->GetType() == "dog")
             {
                 //推入狗队
-                this.Dog.push(new PetEnterQueue(pet, this.count++));
+                this->DogQ.push(new PetEnterQueue(pet, count++));
 
             }
-            else if (pet.GetType() == "cat")
+            else if (pet->GetType() == "cat")
             {
                 //推入猫队
-                this.Cat.push( new PetEnterQueue (pet,this.count++));
+                this->CatQ.push( new PetEnterQueue (pet,count++));
             }
             else
             {
@@ -97,16 +95,16 @@ class PetQueue
         {
             if(!this.Dog.empty() && !this.Cat.empty())
             {
-                if(this.Dog.front().GetCount() < this.Cat.front().GetCount())
+                if(this.DogQ->front()->GetCount() < this->CatQ.front()->GetCount())
                 {
-                    PullDog();
+                    PollDog();
                 }
             }
-            else if(!this.Dog.empty())
+            else if(!this.DogQ.empty())
             {
                 PollDog();
             }
-            else if(!this.Cat.empty())
+            else if(!this.CatQ.empty())
             {
                 PollCat();
             }
@@ -119,10 +117,10 @@ class PetQueue
         //狗队出队
         Dog *PollDog()
         {
-            if(!this->Dog.empty())
+            if(!this->DogQ.empty())
             {
-                p = this->Dog.front().GetPet();//暂存队首元素
-                this->Dog.pop();//出队
+                p = this->DogQ.front()->GetPet();//暂存队首元素
+                this->DogQ.pop();//出队
                 return p ;
 
             }
@@ -135,16 +133,16 @@ class PetQueue
         //猫队出队
         Cat *PollCat()
         {
-            if(!this->Cat.empty())
+            if(!this->CatQ.empty())
             {
-                p = this->Cat.front().GetPet();//暂存队首元素
-                this->Cat.pop();//出队
+                p = this->CatQ.front()->GetPet();//暂存队首元素
+                this->CatQ.pop();//出队
                 return p ;
 
             }
             else
             {
-                throw out_of_range("Dog Queue is empty!");
+                throw out_of_range("Cat Queue is empty!");
             }
         }
 
