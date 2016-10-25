@@ -164,5 +164,41 @@ class PetQueue
 
 int main()
 {
+    int x;
+    PetQueue P(0);
+    Pet d("dog");
+    Pet c("cat");
+    P.Add(&d);
+    P.Add(&c);
+    cout << "Press 1 Dog InQueue,Press 2 Cat InQueue\n";
+    while(cin >> x,x == 1 || x == 2)
+    {
+        if(x == 1)
+        {
+            P.Add(&d);
+        }
+        else
+        {
+            P.Add(&c);
+        }
+    }
+    cout << "...\nInQueue Complate!\n\n\n"
+         << "Press 1 Dog OutQueue,Press 2 Cat OutQueue,Press 3 All OutQueue\n";
+    cout << P.Empty();
+    while(cin >> x,x == 1 || x == 2 || x == 3)
+    {
+        if(x == 1)
+        {
+            P.PollDog();
+        }
+        else if ( x == 2)
+        {
+            P.PollCat();
+        }
+        else
+        {
+            P.PollAll();
+        }
+    }
     return 0;
 }
