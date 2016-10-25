@@ -75,12 +75,16 @@ class PetQueue
             {
                 //推入狗队
                 this->DogQ.push(new PetEnterQueue(pet, count++));
+                cout << this->DogQ.front()->GetEnterType()
+                     << " just run in queue!" << endl;
 
             }
             else if (pet->GetType() == "cat")
             {
                 //推入猫队
                 this->CatQ.push( new PetEnterQueue (pet,count++));
+                cout << this->CatQ.front()->GetEnterType()
+                     << " just run in queue!" << endl;
             }
             else
             {
@@ -117,6 +121,8 @@ class PetQueue
             if(!this->DogQ.empty())
             {
                 Dog *d = (Dog *)this->DogQ.front()->GetPet();//暂存队首元素
+                cout << this->DogQ.front()->GetEnterType()
+                     << " out of the queue!" << endl;
                 this->DogQ.pop();//出队
                 return d ;
 
@@ -133,6 +139,8 @@ class PetQueue
             if(!this->CatQ.empty())
             {
                 Cat *c = (Cat *)this->CatQ.front()->GetPet();//暂存队首元素
+                cout << this->CatQ.front()->GetEnterType()
+                     << " out of the queue!" << endl;
                 this->CatQ.pop();//出队
                 return c ;
 
@@ -161,44 +169,51 @@ class PetQueue
         }
 };
 
-
+//主函数：测试功能
 int main()
 {
     int x;
     PetQueue P(0);
     Pet d("dog");
     Pet c("cat");
-    P.Add(&d);
-    P.Add(&c);
-    cout << "Press 1 Dog InQueue,Press 2 Cat InQueue\n";
-    while(cin >> x,x == 1 || x == 2)
-    {
-        if(x == 1)
+    cout << P.Empty()<<endl;
+    try{
+        cout << "Press 1 Dog InQueue,Press 2 Cat InQueue\n";
+        while(cin >> x,x == 1 || x == 2)
         {
-            P.Add(&d);
+            if(x == 1)
+            {
+                P.Add(&d);
+            }
+            else
+            {
+                P.Add(&c);
+            }
         }
-        else
+        cout << "...\nInQueue Complate!\n\n\n"
+             << "Press 1 Dog OutQueue,Press 2 Cat OutQueue,Press 3 All OutQueue\n";
+        cout << P.Empty();
+        while(cin >> x,x == 1 || x == 2 || x == 3)
         {
-            P.Add(&c);
+            if(x == 1)
+            {
+                P.PollDog();
+            }
+            else if ( x == 2)
+            {
+                P.PollCat();
+            }
+            else
+            {
+                P.PollAll();
+            }
         }
     }
-    cout << "...\nInQueue Complate!\n\n\n"
-         << "Press 1 Dog OutQueue,Press 2 Cat OutQueue,Press 3 All OutQueue\n";
-    cout << P.Empty();
-    while(cin >> x,x == 1 || x == 2 || x == 3)
+    catch(exception &ex)
     {
-        if(x == 1)
-        {
-            P.PollDog();
-        }
-        else if ( x == 2)
-        {
-            P.PollCat();
-        }
-        else
-        {
-            P.PollAll();
-        }
+        cerr << "Exception:"<<ex.what() << endl;
+        return -1;
     }
+
     return 0;
 }
