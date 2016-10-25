@@ -92,13 +92,14 @@ class PetQueue
             }
         }
         //猫狗全部出队
-        Pet PollAll()
+        void *PollAll()
         {
             if(!this->DogQ.empty() && !this->CatQ.empty())
             {
                 if(this->DogQ.front()->GetCount() < this->CatQ.front()->GetCount())
                 {
                     PollDog();
+
                 }
             }
             else if(!this->DogQ.empty())
@@ -123,6 +124,8 @@ class PetQueue
                 Dog *d = (Dog *)this->DogQ.front()->GetPet();//暂存队首元素
                 cout << this->DogQ.front()->GetEnterType()
                      << " out of the queue!" << endl;
+                cout << "The count No. is "
+                     << DogQ.front()->GetCount() << endl;
                 this->DogQ.pop();//出队
                 return d ;
 
@@ -141,6 +144,8 @@ class PetQueue
                 Cat *c = (Cat *)this->CatQ.front()->GetPet();//暂存队首元素
                 cout << this->CatQ.front()->GetEnterType()
                      << " out of the queue!" << endl;
+                cout << "The count No. is "
+                     << CatQ.front()->GetCount()<< endl;
                 this->CatQ.pop();//出队
                 return c ;
 
@@ -217,3 +222,4 @@ int main()
 
     return 0;
 }
+
