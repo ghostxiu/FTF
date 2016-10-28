@@ -1,39 +1,39 @@
-//5.按照原书改写的C++版本
+//5.鎸夌収鍘熶功鏀瑰啓鐨凜++鐗堟湰
 #include<iostream>
-#include<gx/gx_stack>
+#include<gx_stack>
 #include<stdexcept>
 #include<cstdlib>
 #include<ctime>
 using namespace std;
 Stack<int> *SortStack(Stack<int> *stack)
 {
-    Stack<int> help ;
-    if (stack->empty())
-    {
-        throw out_of_range("Empty Stack!");
-    }
-    while(!stack->empty())
-    {
-        int cur = stack->top();
-        stack->pop();
-        while(!help.empty() && help.top() > cur)
-        {
-            stack->push(help.top());
-        }
-        help.push(cur);
-    }
-    while(!help.empty())
-    {
-        stack->push(help.top());
-        help.pop();
-    }
-    return stack;
+	Stack<int> help;
+	if (stack->empty())
+	{
+		throw out_of_range("Empty Stack!");
+	}
+	while (!stack->empty())
+	{
+		int cur = stack->top();
+		stack->pop();
+		while (!help.empty() && help.top() > cur)
+		{
+			stack->push(help.top());
+		}
+		help.push(cur);
+	}
+	while (!help.empty())
+	{
+		stack->push(help.top());
+		help.pop();
+	}
+	return stack;
 }
 
 int main()
 {
-    Stack<int> *stack;
-    try {
+	Stack<int> *stack;
+	try {
 		int x, y, z;
 		x = 1; y = 1000;
 		cout << "The stack is Pushing!\n...\n";
