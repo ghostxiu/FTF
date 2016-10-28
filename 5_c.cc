@@ -16,9 +16,10 @@ Stack<int> *SortStack(Stack<int> *stack)
 	{
 		int cur = stack->top();
 		stack->pop();
-		while (!help.empty() && help.top() > cur)
+		while (!help.empty() && (help.top() > cur))
 		{
 			stack->push(help.top());
+			help.pop();
 		}
 		help.push(cur);
 	}
@@ -30,9 +31,11 @@ Stack<int> *SortStack(Stack<int> *stack)
 	return stack;
 }
 
+
+//下面是输出效果
 int main()
 {
-	Stack<int> *stack;
+	Stack<int> *stack = new Stack<int>;
 	try {
 		int x, y, z;
 		x = 1; y = 1000;
