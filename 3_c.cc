@@ -2,7 +2,7 @@
 #include<iostream>
 #include<stdexcept>
 #include<vector>
-#include<gx_stack>
+#include<gx/gx_stack>
 
 using namespace std;
 template <class T>
@@ -10,7 +10,6 @@ class  ReStack {
 private:
 	Stack<int> Stk;
 	Stack<int> ReStk;
-	int i = 0;
 public:
 
 	void Push(int x)
