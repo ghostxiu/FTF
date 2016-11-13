@@ -8,7 +8,8 @@ using namespace std;
 //C++返回一个int类型的数组
 int* screen_max(int arr[] , int n, int w)
 {
-    int fd[n- w +1];//存储窗口最大值的数组
+    int *fd= new int[n- w +1];
+    //存储窗口最大值的数组，这里使用动态数组的方法
     deque<int> qmax;//开辟一个双端队列存储最大值下标
     if(arr == NULL || w < 1 || n < w)
     {
