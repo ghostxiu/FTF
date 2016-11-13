@@ -10,6 +10,7 @@ int* screen_max(int arr[] , int n, int w)
 {
     int *fd= new int[n- w +1];
     //存储窗口最大值的数组，这里使用动态数组的方法
+    //xxx-注意必须使用动态数组，否则传值会被销毁
     deque<int> qmax;//开辟一个双端队列存储最大值下标
     if(arr == NULL || w < 1 || n < w)
     {
@@ -18,17 +19,24 @@ int* screen_max(int arr[] , int n, int w)
     int index = 0 ;
     for(int i = 0 ; i < n ; i++ )
     {
+        //遍历数组
         while(!qmax.empty()&&arr[qmax.back()]<=arr[i])
         {
+            //若qmax队尾的下标对应值小于等于i对应的值时出队
             qmax.pop_back();
         }
         qmax.push_back(i);
+        //先将队标都入队
+        if(qmax.front() == i - w)
+        {
+            //队首元素过期，出队
+            qmax.pop_front();
+        }
         if( i >= w - 1)
         {
             fd[index++] = arr[qmax.front()];
         }
     }
-
 
     return fd;
 }
