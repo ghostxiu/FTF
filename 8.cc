@@ -21,15 +21,9 @@ public:
     {
         value  = 0 ;
     }
-
-
-    bool operator= =(const Node &S)
+    bool operator == (const Node &S) const
     {
-        if(this->value != S.value)
-        {
-            return false;
-        }
-        return ture;
+        return this->value == S.value;
     }
 };
 //涉及map，类数组
@@ -63,6 +57,111 @@ void PopStackSetMap(Stack<Node> &stack,unordered_map<Node,Node> &map)
         map.insert(unordered_map<Node,Node>::value_type(PopNode,stack.top()));
     }
 }
+
+Node GetMaxTree (int arr[],int n)
+{
+    Node *Narr = new Node[n];
+    Node Head;
+
+    //将数组的值传入Narr[]中
+    for(int i = 0 ; i != n ; i++)
+    {
+        Narr[i] = arr[i];
+    }
+
+
+    //开辟栈和拉链表帮助实现maxtree
+    Stack<Node> stack ;
+    unordered_map<Node,Node> lBigMap;
+    unordered_map<Node,Node> rBigMap;
+
+    //正 向遍历Narr ,构建左子树
+    for(int i= 0 ; i != n ; i++ )
+    {
+        Node CurNode = Narr[i];
+        if(!stack.empty() && stack.top().value < CurNode.value)
+        {
+            PopStackSetMap(stack,lBigMap);
+        }
+        stack.push(CurNode);
+    }
+
+    while(!stack.empty())
+    {
+        PopStackSetMap(stack,lBigMap);
+    }
+
+
+    //逆向遍历Narr,构建右子树
+    for(int i = n -1 ; i != -1 ; i--)
+    {
+        Node CurNode = Narr[i];
+        if(!stack.empty() && stack.top().value < CurNode.value)
+        {
+            PopStackSetMap(stack,rBigMap);
+        }
+        stack.push(CurNode);
+    }
+
+    while(!stack.empty())
+    {
+        PopStackSetMap(stack,rBigMap);
+    }
+
+    //从头构建树
+    for(int i = 0 ; i != n ; i++)
+    {
+        Node CurNode = Narr[i];
+        Node Left = lBigMap.erase(CurNode);
+        Node Right = rBigMap.erase(CurNode);
+
+        if(Left == NULL && Right == NULL)
+        {
+            //左右子树都为空创建头节点
+            Head = CurNode;
+        }
+
+        else if (Left == NULL)
+        {
+            if(Right.left == NULL)
+            {
+                Right.left = &CurNode;
+            }
+            else
+            {
+                Right.right = &CurNode;
+            }
+        }
+        else if (Right == NULL)
+        {
+            if(Left.left == NULL)
+            {
+                Left.left = &CurNode;
+            }
+            else
+            {
+                Left.right = &CurNode ;
+            }
+        }
+        else
+        {
+            Node Parent = Left.value < Right.value?Left:Right;
+            if(Parent.left == NULL)
+            {
+                Parent.left = &CurNode;
+            }
+            else
+            {
+                Parent.right = &CurNode;
+            }
+        }
+
+    }
+
+}
+
+//时空复杂度为n
+
 
 /* MaxTree的定义：
 1.数组没有重复元素；
