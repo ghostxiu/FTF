@@ -1,0 +1,24 @@
+//递归全排列算法模板
+template <class T>
+void Perm(T List[] , int k , int m )
+{
+    //产生list[k:m]的所有排列
+    if( k == m)
+    {
+        //只剩下一个元素
+        for(int i = 0 ; i <= m ; i++)
+        {
+            std::cout << List[i] << " ";
+        }
+        std::cout << std::endl;
+    }
+    else
+    {
+        for(int i = k ; i <= m ; i++ )
+        {
+            Swap(List[i],List[k]);
+            Perm(List,k+1,m);
+            Swap(&List[i],&List[k]);
+        }
+    }
+}

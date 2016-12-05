@@ -1,0 +1,81 @@
+#include<iostream>
+template<class T>
+//显示一维数组的模板
+void DisplayArr(T &a,int n)
+{
+	std::cout << std::endl ;
+    for(int i = 0 ; i < n ; i++ )
+    {
+        std::cout << "arr[" << i << "] = " << a[i] ;
+        if((i+1)%5 == 0 & i != 0 )
+        {
+
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << "  ";
+        }
+    }
+}
+
+template<class T>
+//显示一维数组的模板
+void DisplayArr(T a,int n,std::string s)
+{
+	std::cout << std::endl ;
+	std::cout << s << std::endl;
+    for(int i = 0 ; i < n ; i++ )
+    {
+        std::cout << "arr[" << i << "] = " << a[i] ;
+        if((i+1)%5 == 0 & i != 0 )
+        {
+
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << "  ";
+        }
+    }
+}
+
+
+template<class T>
+//交换模板
+void Swap(T &a,T &b)
+{
+    T c = a;
+    a = b ;
+    b = c;
+}
+
+template<class T>
+void Swap(T *a,T *b)
+{
+    T  tmp ;
+    tmp = *a ;
+    *a = *b;
+    *b = tmp ;
+}
+
+
+template<class T>
+//复制模板
+void Copy(T *a,T *b,int l , int r)
+{
+    for(int i = l; i < r ; i++)
+    {
+        a[i] = b[i];
+    }
+}
+
+template<class T>
+//逆置数组
+void ReverseArr(T *arr , int n)
+{
+    for(int i = 0 , j = n -1 ; i  < j ; i++ , j--)
+    {
+        Swap(arr[i],arr[j]);
+    }
+}

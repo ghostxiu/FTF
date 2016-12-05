@@ -1,0 +1,24 @@
+template<class T>
+//创建一个长度为n的自然数数组
+void CreateArr(T *arr, int n)
+{
+    for(int i = 0 ; i < n ; i++ )
+    {
+        arr[i] = i + 1 ;
+    }
+}
+
+
+//创建一个长度为n的随机数组
+#include<ctime>
+#include<cstdlib>
+template<class T>
+void CreateRandArr(T *arr , int n )
+{
+    T x = T(n);
+    srand(time(NULL));
+    for(int i = 0 ; i < n ; i ++)
+    {
+        arr[i] = rand()/x;
+    }
+}

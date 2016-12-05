@@ -1,0 +1,74 @@
+/*快速排序
+时间复杂度为O(nlogn)
+其中划分元素p是关键 也可以用随机法产生
+*/
+
+template<class T>
+//快速排序算法的划分算法
+int Partition(T *a,int p , int r)
+{
+    int i = p ,j = r + 1;
+    T k  = a[p];
+    //把小于a[p]的元素放到左边，大于a[p]的元素放到右边
+    while( 1 )
+    {
+        while(a[++i] < k && i < r );
+        while(a[--j] > k);
+        if(i >= j) break;
+        Swap(a[i],a[j]);
+    }
+    a[p] = a[j];
+    a[j] = k ;
+    return j ;
+}
+//↑时间复杂度为O(r-p-1)
+
+template<class T>
+//快速排序算法
+void QuickSort(T *a, int p , int r)
+{
+    if( p < r )
+    {
+        int q = Partition(a,p,r);
+        QuickSort(a,p,q-1);//排序左半段
+        QuickSort(a,q+1,r);//排序右半段
+    }
+}
+//↑时间复杂度为O(log<n>)
+#include<ctime>
+#include<cstdlib>
+int Random(int p , int r)
+{
+    srand(time(NULL));
+    int k =(rand()%((r+p)*10/2))/10;
+    k+=(rand()%((r-p)*10/3))/10;
+
+    return k ;
+}
+
+
+template<class T>
+int RandomsizedPartition(T *a, int p , int r)
+{
+    int i = Random(p,r);
+    Swap(a[i],a[p]);
+    return Partition(a,p,r);
+}
+
+template<class T>
+void RandomsizedQuickSort(T*a ,int p , int r)
+{
+    if(p < r)
+    {
+        int q = RandomsizedPartition(a,p,r);
+        RandomsizedQuickSort(a,p,q-1);
+        RandomsizedQuickSort(a,q+1,r);
+
+    }
+}
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+//乱序数组,时间复杂度为n
+#include<ctime>
+#include<cstdlib>
+#include<iostream>
+template <class T>
+void MixArr(T &a,int n )
+{
+    srand(time(NULL));
+    for(int i = 0 ;i < n ; i++ )
+    {
+        int t = (rand()%n)/2;
+        Swap(a[i],a[t]);
+    }
+}

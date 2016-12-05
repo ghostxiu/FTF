@@ -1,0 +1,17 @@
+template <class T>
+int BinarySearch(T a[],const T &x, int n)
+{
+    //a是数组，x是要找的数,n是数组的长度
+    int left = 0 ;
+    int right = n - 1 ;
+
+    while(left <= right )
+    {
+        int middle = (left + right) / 2 ;
+        if(x == a[middle]) return middle;
+        else if( x > a[middle])
+            left = middle + 1;
+        else right = middle - 1 ;
+    }
+    return - 1 ;
+}
