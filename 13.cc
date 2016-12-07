@@ -1,5 +1,4 @@
-//删除链表的中间
-//12.删除单双链表的倒数第i个节点
+//13.删除链表的中间
 #include<iostream>
 #include<list>
 using namespace std;
