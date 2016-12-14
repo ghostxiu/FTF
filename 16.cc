@@ -1,4 +1,4 @@
-//约瑟夫问题，使用List ，时间复杂度为n
+//约瑟夫问题，使用List
 #include<iostream>
 #include<list>
 #include "gx/abort_stl_list"
