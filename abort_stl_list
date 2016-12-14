@@ -1,0 +1,43 @@
+#pragma once
+#include<list>
+#include<iostream>
+
+using namespace std;
+typedef list<int> List;
+typedef List::iterator Literator;
+List CreateAList(int s)
+{
+	//创建一个简单的链表
+	List L;
+	for(int i = 0 ; i < s; i++ )
+	{
+		L.push_back(i+1);
+	}
+	return L;
+}
+
+
+template<class T>
+void CoutList( T &L, string pr)
+{
+	//输出链表
+	cout << "\n" << pr << endl ;
+
+	for(Literator l = L.begin(); l != L.end() ; l++)
+	{
+		cout << " " << *l;
+	}
+	cout << endl ;
+}
+
+
+template<class T>
+void CoutList( T &L)
+{
+	//输出链表
+
+	for(Literator l = L.begin(); l != L.end() ; l++)
+	{
+		cout << " " << *l;
+	}
+}
